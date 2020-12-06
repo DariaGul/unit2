@@ -33,8 +33,8 @@ public class VK implements Messenger {
         return server
             .getListMessage(VK.this)
             .stream()
-            .filter(c -> (c.getClientIdTo().equals(ownerId) && c.getClientIdFrom().equals(friendId))
-                || c.getClientIdFrom().equals(ownerId) && c.getClientIdTo().equals(friendId))
+            .filter(c -> (ownerId.equals(c.getClientIdTo()) && friendId.equals(c.getClientIdFrom()))
+                || ownerId.equals(c.getClientIdFrom()) && friendId.equals(c.getClientIdTo()))
             .max(Comparator.comparing(Message::getTimeDispatch))
             .orElse(null);
     }

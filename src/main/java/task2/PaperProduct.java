@@ -9,8 +9,8 @@ import task1.Stationery;
 // бумажные изделия
 public abstract class PaperProduct extends Stationery {
 
-    protected List<Record> records;
-    protected int durability;
+    private List<Record> records;
+    private int durability;
 
     protected int getDurability() {
         return durability;
@@ -35,25 +35,26 @@ public abstract class PaperProduct extends Stationery {
     }
 
     protected void deleteRecord(UUID recordId, Corrector corrector) {
-        WritingUtensil writingTool = getWritingTool(recordId);
-        if (writingTool != null && (corrector.getErasingEverything() || !writingTool.getIndelible())) {
-            records
+
+        Optional.of(getWritingTool(recordId))
+            .filter(c -> corrector.getErasingEverything() || !c.getIndelible())
+            .flatMap(c -> records
                 .stream()
-                .filter(c -> c.getId().equals(recordId))
-                .findAny()
-                .ifPresent(value -> {
-                    records.remove(value);
-                    durability++;
-                });
-        }
+                .filter(currentRecord -> recordId.equals(currentRecord.getId()))
+                .findAny()).ifPresent(value -> {
+            records.remove(value);
+            durability++;
+        });
+
     }
 
     protected WritingUtensil getWritingTool(UUID recordId) {
-        Optional<Record> record = records
+        return records
             .stream()
-            .filter(c -> c.getId().equals(recordId))
-            .findAny();
-        return record.map(Record::getWritingTool).orElse(null);
+            .filter(c -> recordId.equals(c.getId()))
+            .map(Record::getWritingTool)
+            .findFirst()
+            .orElse(null);
     }
 
     public List<Record> getRecords() {

@@ -4,8 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
         FirstTask firstTask = (value) -> value % 13 == 0;
-        System.out.println(firstTask.modThirteen(26));
-        System.out.println(firstTask.modThirteen(44));
+        System.out.println(firstTask.mod(26));
+        System.out.println(firstTask.mod(44));
         System.out.println();
 
         SecondTask secondTask = (a, b, c) -> Math.pow(b, 2) - 4 * a * c;

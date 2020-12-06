@@ -4,7 +4,7 @@ import task1.Stationery;
 
 public abstract class Corrector extends Stationery {
 
-    protected int durability = 10;
+    private int durability = 10;
 
     public int getDurability() {
         return durability;

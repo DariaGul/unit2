@@ -2,13 +2,12 @@ package task1;
 
 import java.util.Objects;
 
+//канцелярские товары
 public abstract class Stationery {
 
-    //канцелярские товары
+    private double cost = 50;
 
-    protected double cost = 50;
-
-    public double getCost(){
+    public double getCost() {
         return cost;
     }
 

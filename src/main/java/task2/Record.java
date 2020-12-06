@@ -4,15 +4,16 @@ import java.util.UUID;
 
 public class Record {
 
-    public UUID id;
-    public String text;
-    public WritingUtensil writingTool;
+    private UUID id;
+    private String text;
+    private WritingUtensil writingTool;
 
-    public Record(String text, WritingUtensil writingTool){
+    public Record(String text, WritingUtensil writingTool) {
         id = UUID.randomUUID();
         this.text = text;
         this.writingTool = writingTool;
     }
+
     public String getText() {
         return text;
     }

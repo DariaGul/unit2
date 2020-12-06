@@ -29,20 +29,18 @@ public class Calculator {
                                }
                            }
         );
+
         return mapStationery;
     }
 
     public double getCostOfStationery(long id) {
-        double costAllStationery = 0;
-        Employee employee = repository.getEmployee(id);
-        List<Stationery> stationery = employee.getWorkplace().getStationery();
-        if (stationery.isEmpty()) {
-            return 0;
-        }
-        for (Stationery current : stationery) {
-            costAllStationery += current.getCost();
-        }
-        return costAllStationery;
+
+        return repository.getEmployee(id)
+            .getWorkplace()
+            .getStationery()
+            .stream()
+            .mapToDouble(Stationery::getCost)
+            .sum();
     }
 
 
